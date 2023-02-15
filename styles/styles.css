@@ -1,0 +1,106 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+nav > ul > li {
+  background-color: white;
+}
+.nav-link {
+  color: black !important;
+}
+header {
+  background-color: rgb(125, 63, 241);
+}
+footer {
+  background-color: rgb(30, 62, 165);
+}
+
+footer img {
+  height: 30px;
+  margin: 5px;
+  border-radius: 20px;
+}
+body {
+  border: solid 1px black;
+}
+header {
+  border: solid 1px black;
+}
+footer {
+  border: solid 1px black;
+}
+div a img {
+  width: 50px;
+  border: solid 1px black;
+}
+.nav-panel {
+  border: solid 1px black;
+}
+.form-check {
+  padding: 20px;
+}
+.card {
+  margin: 20px;
+}
+#Message {
+  padding-bottom: 3rem;
+}
+table,
+th,
+td {
+  border: 1px solid black !important;
+  border-collapse: collapse !important;
+}
+th {
+  background-color: #96d4d4;
+  height: 2rem;
+  font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 768) {
+  .logocont {
+    justify-content: center !important;
+  }
+}
+#btn-busq {
+  max-height: 38px !important;
+}
+.card-img-top {
+  padding: 10px;
+}
+
+.card-title {
+  text-align: center;
+}
+.card-text {
+  text-align: center;
+}
+.btn btn-primary {
+  justify-content: end;
+}
+.parrafo {
+  justify-content: start;
+}
+.logo {
+  padding-left: 15px;
+}
+.barra {
+  background-color: #d0cbfd;
+}
+.principal {
+  background-color: aliceblue;
+}
+.form-group {
+  margin-top: 20px;
+}
+.principal {
+  background-color: #d0cbfd;
+}
+td {
+  width: 450px;
+}
