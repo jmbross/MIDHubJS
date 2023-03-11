@@ -2,6 +2,7 @@ let queryString = location.search;
 let params = new URLSearchParams(queryString);
 
 let _id = params.get('id');
+console.log(_id);
 
 let detail = data.events.find(event => event._id == _id);
-document.getElementById("detalleTarjeta").innerHTML = encontrarDetail(detail)
+document.getElementById("detalleTarjeta").innerHTML = encontrarDetail(detail);

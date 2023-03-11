@@ -54,55 +54,30 @@
                         src="./assets/right-arrow.png" alt="flecha derecha"></a></div>
            </div>
        </div>
+        <!-- ----------------------------------------------------- -->
         <div class="container-fluid">
-            <div class="row">
-                <div class="d-flex flex-wrap justify-content-center col-lg-7 col-sm-12">
+            <div class=" row bg-body-secondary mt-2">
+                <div class="checkbox col-sm-12 col-md-12 col-lg-9 d-flex flex-wrap justify-content-start align-items-center mt-2"
+                id="cajaDeChecks">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
                         <label class="form-check-label" for="inlineCheckbox1">Category</label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox2">Category</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                        <label class="form-check-label" for="inlineCheckbox3">Category</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
-                        <label class="form-check-label" for="inlineCheckbox4">Category</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
-                        <label class="form-check-label" for="inlineCheckbox5">Category</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option5">
-                        <label class="form-check-label" for="inlineCheckbox6">Category</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option5">
-                        <label class="form-check-label" for="inlineCheckbox7">Category</label>
-                    </div>
                 </div>
-                <div class="col-lg-5 col-sm-12 d-flex justify-content-center">
-                    <div class="input-group d-flex justify-content-center">
-                        <div class="form-outline">
-                          <input type="search" id="form1" class="form-control">
-                          <label class="form-label" for="form1"></label>
-                        </div>
-                        <button id="btn-busq" type="button" class="btn btn-primary">
-                            <i class="fa fa-search"></i>
-                        </button>
-                      </div>
+                <div class="col-sm-12 col-md-12 col-lg-3">
+                    <div class="input-group d-flex justify-content-end mt-2 pb-2">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Name/Description" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="tarjeta row d-flex justify-content-around bg-body-secondary p-4 mt-2" id="tarjeta">
-            </div> 
-        </div>
+    <div class="container-fluid">
+        <div class="tarjeta row d-flex justify-content-around bg-body-secondary p-4 mt-2" id="tarjeta"><!-- Acá está incrustado el Js con el id Tarjeta -->
+        </div> 
+    </div>
     </div> 
         <footer>
             <div class="container-fluid">
