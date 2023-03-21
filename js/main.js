@@ -1,5 +1,3 @@
-//Función html de tarjeta dinámica
-
 function traerTarjeta(event) {
 
     return  `<div class="card my-3 py-2" style="width: 20rem;">
@@ -17,17 +15,12 @@ function traerTarjeta(event) {
             </div>`;
 }
 
-//Función html para filtrado de checkbox
-
 function filtradoCheck(event){
-
     return `<div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox"  value="${event}">
                 <label class="form-check-label" >${event}</label>
             </div>`;
 }
-
-//Función html para search params
 
 function encontrarDetail(event) {
     return `<div class="card"style="width: 30rem; height: 375px; border: 1px solid;">
@@ -48,9 +41,7 @@ function encontrarDetail(event) {
             </div>`;         
         }
 
-//Mostrar categorias en el body
-
-function cargarCategoriasHtml(){
+function cargarCategoriasHtml(data){
 
     let arrayCategoria =[];
         for(let event of data.events){
@@ -58,9 +49,7 @@ function cargarCategoriasHtml(){
         arrayCategoria.push(event.category);
             }
         }
-
     let incluirCategoria = "";
-    
     arrayCategoria.forEach(categoria => {
         incluirCategoria += filtradoCheck(categoria);
         }
@@ -68,3 +57,189 @@ function cargarCategoriasHtml(){
     let checkCategoria = document.getElementById('cajaDeChecks');
     checkCategoria.innerHTML = incluirCategoria;
 }
+
+//Armado de tablas
+
+let arrayMayorPorcentaje = [];
+let arrayMenorPorcentaje = [];
+let arrayCapacidad = [];
+
+function traerPorcentajeAsistencia(data) {
+    let nombres = [];
+    for (let nombre of data.events) {
+        if (!nombres.includes(nombre.name) && (nombre.assistance != undefined)) {
+            nombres.push(nombre.name);
+        }
+    }
+    let porcentaje = [];
+    for (let asistencia of data.events) {
+        if (asistencia.assistance != undefined) {
+            porcentaje.push((asistencia.assistance) / (asistencia.capacity) * 100);
+        }
+    }
+    let porcentajeRedondeado = porcentaje.map((num) => {
+        return num.toFixed(2);
+    });
+    let valores = nombres.map((name, index) => {
+        return { name: name, value: porcentajeRedondeado[index] };
+    });
+    valoresOrdenados = valores.sort(function (a, b) {
+        if (a.value > b.value) {
+            return -1;
+        }
+        if (a.value < b.value) {
+            return 1;
+        }
+        return 0;
+    });
+
+    let mayorPorcentaje = valoresOrdenados.slice(0, 5);
+    arrayMayorPorcentaje = mayorPorcentaje.map(texto => {
+        return texto.name + ': ' + texto.value + ' %.';
+    });
+
+    let menorPorcentaje = valoresOrdenados.slice(13, 18).reverse();
+    arrayMenorPorcentaje = menorPorcentaje.map(texto => {
+        return texto.name + ': ' + texto.value + ' %.';
+    });
+
+    let nombresI = [];
+    for (let nombre of data.events) {
+        nombresI.push(nombre.name);
+    }
+    let capacidad = [];
+    for (let capacidadI of data.events) {
+        capacidad.push(capacidadI.capacity);
+    }
+    let valoresI = nombres.map((name, index) => {
+        return { name: name, value: capacidad[index] };
+    });
+
+    let capacidadOrdenadas = valoresI.sort((function (a, b) {
+        if (a.value > b.value) {
+            return -1;
+        }
+        if (a.value < b.value) {
+            return 1;
+        }
+        return 0;
+    }));
+
+    let mayorCapacidad = capacidadOrdenadas.slice(0, 5);
+    arrayCapacidad = mayorCapacidad.map(texto => {
+        return texto.name + ': ' + texto.value + '.';
+    });
+}
+
+function esEventoPasado(event) {
+    let currentDate = new Date(event.currentDate);
+    let eventDate = new Date(event.date);
+    return eventDate < currentDate;
+  }
+
+function esEventoFuturo(event) {
+    let currentDate = new Date(event.currentDate);
+    let eventDate = new Date(event.date);
+    return eventDate > currentDate;
+  }
+
+function traerEventosFuturos(data) {
+    let eventosFuturos = "";
+    let categoria = [];
+
+    for (let event of data.events) {
+      if (!categoria.includes(event.category) && !esEventoPasado(event)) {
+        
+        let total = 0;
+        let estimado = 0;
+        let capacidad = 0;
+        let porcentajePromedio = 0;
+        categoria.push(event.category);
+        
+        for (let evento of data.events) {
+            if (evento.category == event.category &&  evento.estimate != undefined) {
+                estimado += evento.estimate;
+                capacidad += evento.capacity;
+                total = evento.estimate * evento.price;
+            }
+            porcentajePromedio = ((estimado)/capacidad)*100;
+        }
+        if (isNaN(porcentajePromedio)){
+            porcentajePromedio = 0;
+        }
+        eventosFuturos += crearTr(event, total, porcentajePromedio)
+      }
+    }
+    loadFuturos(eventosFuturos);  
+  }
+
+  function traerEventosPasados(data) {
+    let eventosPasados = "";
+    let categoria = [];
+
+    for (let event of data.events) {
+        if (!categoria.includes(event.category) && !esEventoFuturo(event)) {
+           
+        let total = 0;
+        let asistencia = 0;
+        let capacidad = 0;
+        let porcentajePromedio = 0;
+
+        categoria.push(event.category);
+               
+        for (let evento of data.events) {
+            if (evento.category == event.category && evento.assistance != undefined) {
+                asistencia += evento.assistance;
+                capacidad += evento.capacity;
+                total = evento.assistance * evento.price;
+            }
+            porcentajePromedio = ((asistencia)/capacidad)*100;
+        }
+        if (isNaN(porcentajePromedio)){
+            porcentajePromedio = 0;
+        }
+        eventosPasados += crearTr(event, total, porcentajePromedio)
+      }
+    }
+    loadPasados(eventosPasados);  
+  }
+
+function loadPorcentajes() {
+    let container = document.getElementById('gral');
+    let dibujarTablas = '';
+
+    for (let i = 0; i < 5; i++) {
+        let mayorPorcentaje = arrayMayorPorcentaje[i];
+        let menorPorcentaje = arrayMenorPorcentaje[i];
+        let maximaCapacidad = arrayCapacidad[i];
+
+        dibujarTablas += `<tr>
+        <td>${mayorPorcentaje}</td>
+        <td>${menorPorcentaje}</td>
+        <td>${maximaCapacidad}</td>
+    </tr>`;
+    };
+    container.innerHTML = dibujarTablas;
+}
+
+  function loadFuturos(eventosFuturos){
+    let container = document.getElementById('futuro');
+    container.innerHTML = eventosFuturos;
+  }
+
+
+  function loadPasados(eventosPasados){
+    let container = document.getElementById('pasado');
+    container.innerHTML = eventosPasados;
+  }
+
+
+  function crearTr(evento, total, porcentaje) {
+    return `
+    <tr>
+    <td>${evento.category} </td>
+    <td>$${total} </td>
+    <td>${porcentaje.toFixed(2)}% </td>
+    </tr>
+    `
+  }
